@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_firebase_demo"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="dk.rump.andrew.firebasedemo.FirebaseDemoActivity">
+
+    <Button
+        android:id="@+id/commit_button"
+        android:text="Commit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/key11editText" />
+
+    <EditText
+        android:id="@+id/key11editText"
+        android:inputType="text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/commit_button"
+        android:layout_alignParentStart="true"
+        android:ems="10"
+        android:hint="Key 11" />
+
+    <EditText
+        android:id="@+id/value11key12editText"
+        android:inputType="text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/key11editText"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:hint="Value 11 or Key 12" />
+
+    <EditText
+        android:id="@+id/value12editText"
+        android:inputType="text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/value11key12editText"
+        android:layout_alignParentEnd="true"
+        android:ems="10"
+        android:hint="Value 12" />
+
+    <EditText
+        android:id="@+id/key21editText"
+        android:inputType="text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/value12editText"
+        android:layout_alignEnd="@+id/key11editText"
+        android:layout_marginEnd="11dp"
+        android:ems="10"
+        android:hint="Key 21" />
+
+    <EditText
+        android:id="@+id/value21key22editText"
+        android:inputType="text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/key21editText"
+        android:layout_alignStart="@+id/value11key12editText"
+        android:ems="10"
+        android:hint="Value 21 or Key 22" />
+
+    <EditText
+        android:id="@+id/value22editText"
+        android:inputType="text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/value21key22editText"
+        android:layout_alignParentEnd="true"
+        android:ems="10"
+        android:hint="Value 22" />
+
+    <EditText
+        android:id="@+id/key31editText"
+        android:inputType="text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/value22editText"
+        android:layout_alignParentStart="true"
+        android:ems="10"
+        android:hint="Key 31" />
+
+    <EditText
+        android:id="@+id/value31key32editText"
+        android:inputType="text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/key31editText"
+        android:layout_alignStart="@+id/value21key22editText"
+        android:ems="10"
+        android:hint="Value 31 or Key 32" />
+
+    <EditText
+        android:id="@+id/value32editText"
+        android:inputType="text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Value 32"
+        android:layout_below="@+id/value31key32editText"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:text="1/0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/key11editText"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/fatal_button" />
+
+    <Button
+        android:text="Delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fatal_button"
+        android:layout_alignStart="@+id/fatal_button"
+        android:id="@+id/del11button" />
+
+    <Button
+        android:text="Delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/value12editText"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/del21button" />
+
+    <Button
+        android:text="Delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/value22editText"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/del31button" />
+
+    <Button
+        android:text="Delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/key21editText"
+        android:layout_alignParentStart="true"
+        android:id="@+id/del12button" />
+
+    <Button
+        android:text="Delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/key31editText"
+        android:layout_alignParentStart="true"
+        android:id="@+id/del22button" />
+
+    <Button
+        android:text="Delete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/del32button"
+        android:layout_alignBottom="@+id/value32editText"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:id="@+id/class1editText"
+        android:inputType="text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Class 1"
+        android:layout_below="@+id/value32editText"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/value32editText" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/class3editText"
+        android:hint="Class 3"
+        android:layout_below="@+id/value32editText"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/class2checkBox" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/class2checkBox"
+        android:layout_alignBaseline="@+id/class3editText"
+        android:layout_alignBottom="@+id/class3editText"
+        android:layout_toEndOf="@+id/class1editText" />
+
+</RelativeLayout>
