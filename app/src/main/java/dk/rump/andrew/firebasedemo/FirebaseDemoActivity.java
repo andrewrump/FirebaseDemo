@@ -33,7 +33,7 @@ public class FirebaseDemoActivity extends AppCompatActivity implements View.OnCl
     private enum eChange { NoChange, LocalChange, RemoteChange };
     private EditText[][] editTexts = new EditText[cols][rows];
     private String[][] oldTexts = new String[cols][rows];
-    //Button[] delete_buttons = new Button[deletes];
+    Button[] delete_buttons = new Button[deletes];
     private EditText stringEditText;
     private CheckBox booleanCheckBox;
     private EditText integerEditText;
@@ -51,21 +51,21 @@ public class FirebaseDemoActivity extends AppCompatActivity implements View.OnCl
 
         commit_button = (Button) findViewById(R.id.commit_button);
         fatal_button = (Button) findViewById(R.id.fatal_button);
-        //delete_buttons[0] = (Button) findViewById(R.id.del11button);
+        delete_buttons[0] = (Button) findViewById(R.id.del11button);
         editTexts[0][0] = (EditText) findViewById(R.id.key11editText);
         editTexts[0][1] = (EditText) findViewById(R.id.value11key12editText);
         editTexts[0][2] = (EditText) findViewById(R.id.value12editText);
-        //delete_buttons[1] = (Button) findViewById(R.id.del12button);
-        //delete_buttons[2] = (Button) findViewById(R.id.del21button);
+        delete_buttons[1] = (Button) findViewById(R.id.del12button);
+        delete_buttons[2] = (Button) findViewById(R.id.del21button);
         editTexts[1][0] = (EditText) findViewById(R.id.key21editText);
         editTexts[1][1] = (EditText) findViewById(R.id.value21key22editText);
         editTexts[1][2] = (EditText) findViewById(R.id.value22editText);
-        //delete_buttons[3] = (Button) findViewById(R.id.del22button);
-        //delete_buttons[4] = (Button) findViewById(R.id.del31button);
+        delete_buttons[3] = (Button) findViewById(R.id.del22button);
+        delete_buttons[4] = (Button) findViewById(R.id.del31button);
         editTexts[2][0] = (EditText) findViewById(R.id.key31editText);
         editTexts[2][1] = (EditText) findViewById(R.id.value31key32editText);
         editTexts[2][2] = (EditText) findViewById(R.id.value32editText);
-        //delete_buttons[5] = (Button) findViewById(R.id.del32button);
+        delete_buttons[5] = (Button) findViewById(R.id.del32button);
 
         stringEditText = (EditText) findViewById(R.id.class1editText);
         booleanCheckBox = (CheckBox) findViewById(R.id.class2checkBox);
@@ -88,9 +88,10 @@ public class FirebaseDemoActivity extends AppCompatActivity implements View.OnCl
             }
         }
 
-        //for (int i = 0; i < deletes; i++) {
-        //    delete_buttons[i].setOnClickListener(this);
-        //}
+        for (int i = 0; i < deletes; i++) {
+            delete_buttons[i].setEnabled(false);
+            delete_buttons[i].setOnClickListener(this);
+        }
     }
 
     @Override
@@ -110,7 +111,31 @@ public class FirebaseDemoActivity extends AppCompatActivity implements View.OnCl
                     DatabaseReference dbZero = dbRoot.child(editTexts[i][0].getText().toString());
 
                     if (editTexts[i][1].getText().length() > 0) {
+                        switch (i) {
+                            case 0:
+                                delete_buttons[0].setEnabled(true);
+                                break;
+                            case 1:
+                                delete_buttons[2].setEnabled(true);
+                                break;
+                            case 2:
+                                delete_buttons[4].setEnabled(true);
+                                break;
+                        }
+
                         if (editTexts[i][2].getText().length() > 0) {
+                            switch (i) {
+                                case 0:
+                                    delete_buttons[1].setEnabled(true);
+                                    break;
+                                case 1:
+                                    delete_buttons[3].setEnabled(true);
+                                    break;
+                                case 2:
+                                    delete_buttons[5].setEnabled(true);
+                                    break;
+                            }
+
                             dbZero
                                     .child(editTexts[i][1].getText().toString())
                                     .setValue(editTexts[i][2].getText().toString());
@@ -122,9 +147,9 @@ public class FirebaseDemoActivity extends AppCompatActivity implements View.OnCl
                 }
             }
 
-            colourState(stringEditText, newFirebaseClass.getStringValue().equals(stringEditText.getText()) ? eChange.NoChange : eChange.LocalChange);
+            colourState(stringEditText, newFirebaseClass.getStringValue().equals(stringEditText.getText().toString()) ? eChange.NoChange : eChange.LocalChange);
             colourState(booleanCheckBox, newFirebaseClass.getBooleanValue().equals(booleanCheckBox.isChecked()) ? eChange.NoChange : eChange.LocalChange);
-            colourState(integerEditText, newFirebaseClass.getIntegerValue().toString().equals(integerEditText.getText()) ? eChange.NoChange : eChange.LocalChange);
+            colourState(integerEditText, newFirebaseClass.getIntegerValue().toString().equals(integerEditText.getText().toString()) ? eChange.NoChange : eChange.LocalChange);
 
             oldFirebaseClass = newFirebaseClass; // TODO Keep the value
             newFirebaseClass = null;
@@ -139,13 +164,80 @@ public class FirebaseDemoActivity extends AppCompatActivity implements View.OnCl
                 newFirebaseClass = null;
 
                 int x = newFirebaseClass.getIntegerValue();
-            } else {
-                //for (Integer i = 0; i < deletes; i++) {
-                //    if (view == delete_buttons[i]) {
-                //        // TODO Some clever math
-                //        break;
-                //    }
-                //}
+            } else { // Expect it to be the delete button. Bad programming :-)
+                for (Integer i = 0; i < deletes; i++) {
+                    if (view == delete_buttons[i]) {
+                        switch (i) {
+                            case 0:
+                                delete_buttons[0].setEnabled(false);
+                                delete_buttons[1].setEnabled(false);
+                                dbRoot.child(editTexts[0][0].getText().toString()).setValue(null);
+                                editTexts[0][0].setText("");
+                                oldTexts[0][0] = "";
+                                editTexts[0][1].setText("");
+                                oldTexts[0][1] = "";
+                                editTexts[0][2].setText("");
+                                oldTexts[0][2] = "";
+                                break;
+                            case 1:
+                                delete_buttons[0].setEnabled(false);
+                                delete_buttons[1].setEnabled(false);
+                                dbRoot.child(editTexts[0][0].getText().toString()).child(editTexts[0][1].getText().toString()).setValue(null);
+                                editTexts[0][0].setText("");
+                                oldTexts[0][0] = "";
+                                editTexts[0][1].setText("");
+                                oldTexts[0][1] = "";
+                                editTexts[0][2].setText("");
+                                oldTexts[0][2] = "";
+                                break;
+                            case 2:
+                                delete_buttons[2].setEnabled(false);
+                                delete_buttons[3].setEnabled(false);
+                                dbRoot.child(editTexts[1][0].getText().toString()).setValue(null);
+                                editTexts[1][0].setText("");
+                                oldTexts[1][0] = "";
+                                editTexts[1][1].setText("");
+                                oldTexts[1][1] = "";
+                                editTexts[1][2].setText("");
+                                oldTexts[1][2] = "";
+                                break;
+                            case 3:
+                                delete_buttons[2].setEnabled(false);
+                                delete_buttons[3].setEnabled(false);
+                                dbRoot.child(editTexts[1][0].getText().toString()).child(editTexts[1][1].getText().toString()).setValue(null);
+                                editTexts[1][0].setText("");
+                                oldTexts[1][0] = "";
+                                editTexts[1][1].setText("");
+                                oldTexts[1][1] = "";
+                                editTexts[1][2].setText("");
+                                oldTexts[1][2] = "";
+                                break;
+                            case 4:
+                                delete_buttons[4].setEnabled(false);
+                                delete_buttons[5].setEnabled(false);
+                                dbRoot.child(editTexts[2][0].getText().toString()).setValue(null);
+                                editTexts[2][0].setText("");
+                                oldTexts[2][0] = "";
+                                editTexts[2][1].setText("");
+                                oldTexts[2][1] = "";
+                                editTexts[2][2].setText("");
+                                oldTexts[2][2] = "";
+                                break;
+                            case 5:
+                                delete_buttons[4].setEnabled(false);
+                                delete_buttons[5].setEnabled(false);
+                                dbRoot.child(editTexts[2][0].getText().toString()).child(editTexts[2][1].getText().toString()).setValue(null);
+                                editTexts[2][0].setText("");
+                                oldTexts[2][0] = "";
+                                editTexts[2][1].setText("");
+                                oldTexts[2][1] = "";
+                                editTexts[2][2].setText("");
+                                oldTexts[2][2] = "";
+                                break;
+                        }
+                        break;
+                    }
+                }
             }
         }
     }
@@ -181,9 +273,34 @@ public class FirebaseDemoActivity extends AppCompatActivity implements View.OnCl
                     colourState(editTexts[row][0], level1.getKey().equals(oldTexts[row][0]) ? eChange.NoChange : eChange.RemoteChange);
                     oldTexts[row][0] = editTexts[row][0].getText().toString();
 
+                    switch (row) {
+                        case 0:
+                            delete_buttons[0].setEnabled(true);
+                            break;
+                        case 1:
+                            delete_buttons[2].setEnabled(true);
+                            break;
+                        case 2:
+                            delete_buttons[4].setEnabled(true);
+                            break;
+                    }
+
                     if (level1.hasChildren()) {
                         for (DataSnapshot level2 : level1.getChildren()) {
                             Log.d(TAG, "rootDBValueEventListener:onDataChange(2): " + level2.getKey());
+
+                            switch (row) {
+                                case 0:
+                                    delete_buttons[0].setEnabled(true);
+                                    break;
+                                case 1:
+                                    delete_buttons[2].setEnabled(true);
+                                    break;
+                                case 2:
+                                    delete_buttons[4].setEnabled(true);
+                                    break;
+                            }
+
                             editTexts[row][1].setText(level2.getKey().toString());
                             colourState(editTexts[row][1], level2.getKey().toString().equals(oldTexts[row][1]) ? eChange.NoChange : eChange.RemoteChange);
                             oldTexts[row][1] = editTexts[row][1].getText().toString();
